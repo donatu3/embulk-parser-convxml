@@ -53,11 +53,11 @@ out:
 +----------------+----------------+
 ```
 ## advice
-* rootpath
+* rootpath<br>
 config.ymlでrootpathを指定しない場合のymlファイルの書き方はこちらを参照↓<br>
 https://github.com/EndoTakumu/embulk-parser-singlexml   <br>
 parserはこのプラグインで動作します。<br>
-* exclude
+* exclude<br>
 いらないレコードを取り除くことも可能です。<br>
 ```yaml
 in:
@@ -74,7 +74,6 @@ exec: {}
 out:
  type: stdout
 ```
-* preview
 ```yaml
 +----------------+----------------+
 | b_name1:string | c_name2:string |
