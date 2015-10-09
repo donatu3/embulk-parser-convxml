@@ -91,9 +91,13 @@ module Embulk
 					when "string"
 						val.to_s
 					when "long"
-						val.to_i
+                        #val.to_i
+                        ##何も無いときは空にするため
+                        val.to_s.empty? ? nil : val.to_i
 					when "double"
-						val.to_f
+						#val.to_f
+                        ##何も無いときは空にするため
+                        val.to_s.empty? ? nil : val.to_f
 					when "boolean"
 						["yes", "true", "1"].include?(val.downcase)
 					when "timestamp"
