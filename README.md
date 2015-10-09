@@ -32,7 +32,7 @@ embulkを使用して、xmlから好きな名前でカラムを作成する<br>
 ```yaml
 in:
   type: file
-  path_prefix: input2.xml
+  path_prefix: input.xml
   parser:
    type: convxml
    rootpath: 'root/a'
@@ -53,6 +53,32 @@ out:
 +----------------+----------------+
 ```
 ## advice
+* rootpath
 config.ymlでrootpathを指定しない場合のymlファイルの書き方はこちらを参照↓<br>
 https://github.com/EndoTakumu/embulk-parser-singlexml   <br>
-parserはこのプラグインで動作します。
+parserはこのプラグインで動作します。<br>
+* exclude
+いらないレコードを取り除くことも可能です。<br>
+```yaml
+in:
+  type: file
+  path_prefix: input2.xml
+  parser:
+   type: convxml
+   rootpath: 'root/a'
+   exclude: "element.elements['b[2]'].text == 'bbb2'"
+   schema:
+   - {name: b_name1, type: string, exp: "element.elements['b[2]'].text"}
+   - {name: c_name2, type: string, exp: "element.elements['c'].text"}
+exec: {}
+out:
+ type: stdout
+```
+* preview
+```yaml
++----------------+----------------+
+| b_name1:string | c_name2:string |
++----------------+----------------+
+|           bbb5 |           ccc2 |
++----------------+----------------+
+```

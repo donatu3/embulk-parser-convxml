@@ -25,7 +25,6 @@ module Embulk
 			end
 
 			def init
-				#@foreach = task["foreach"]
                 @rootpath = task["rootpath"]
 				@exclude = task["exclude"]
 				@schema = task["schema"]
@@ -37,8 +36,6 @@ module Embulk
                 #inputのファイルを読み取る
                 doc = REXML::Document.new(file.read)
                 #docの中にxmlの全文が入っている
-                p doc.to_s
-                
                 ###rootpathが指定されていた場合（false以外なら）###
 
                 if (@rootpath == "false") then
@@ -47,6 +44,7 @@ module Embulk
                     p ("rootpath :" + @rootpath.to_s)
                     doc.elements.each(@rootpath) do |element|
                         ##rootpathの要素分だけループする##
+                        next if evaluate_exp(doc,@exclude,element)
                         @page_builder.add(make_record(doc,element))
                     end
                 end
