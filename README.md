@@ -1,38 +1,52 @@
 # Convxml parser plugin for Embulk
 
-TODO: Write short description here and embulk-parser-convxml.gemspec file.
+embulkを使用して、xmlから好きな名前でカラムを作成する<br>
+※複数のレコードにも対応※
+
 
 ## Overview
 
 * **Plugin type**: parser
 * **Guess supported**: no
 
-## Configuration
-
-- **option1**: description (integer, required)
-- **option2**: description (string, default: `"myvalue"`)
-- **option3**: description (string, default: `null`)
-
 ## Example
 
+* input.xml
+```yaml
+<root>
+    <a name="a1">
+        <b>bbb1</b>
+        <b>bbb2</b>
+        <b>bbb3</b>
+        <c>ccc1</c>
+    </a>
+    <a>
+        <b>bbb4</b>
+        <b>bbb5</b>
+        <b>bbb6</b>
+        <c>ccc2</c>
+    </a>
+</root>
+```
+* config.yml
 ```yaml
 in:
-  type: any file input plugin type
+  type: file
+  path_prefix: input.xml
   parser:
-    type: convxml
-    option1: example1
-    option2: example2
+   type: singlexml
+   schema:
+   - {name: a_name1, type: string, exp: "doc.elements['root/a/a_b'].text"}
+   - {name: c_name2, type: string, exp: "doc.elements['root/a/c/a_c_d2'].text"}
+exec: {}
+out:
+ type: stdout
 ```
-
-(If guess supported) you don't have to write `parser:` section in the configuration file. After writing `in:` section, you can let embulk guess `parser:` section using this command:
-
-```
-$ embulk gem install embulk-parser-convxml
-$ embulk guess -g convxml config.yml -o guessed.yml
-```
-
-## Build
-
-```
-$ rake
+* preview
+```yaml
++----------------+----------------+
+| a_name1:string | c_name2:string |
++----------------+----------------+
+|            a_b |           acd2 |
++----------------+----------------+
 ```
