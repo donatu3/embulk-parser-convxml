@@ -52,7 +52,7 @@ out:
 |           bbb5 |           ccc2 |
 +----------------+----------------+
 ```
-## advice
+## Advice
 * rootpath<br>
 config.ymlでrootpathを指定しない場合のymlファイルの書き方はこちらを参照↓<br>
 https://github.com/EndoTakumu/embulk-parser-singlexml   <br>
