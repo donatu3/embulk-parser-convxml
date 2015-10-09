@@ -32,12 +32,13 @@ embulkを使用して、xmlから好きな名前でカラムを作成する<br>
 ```yaml
 in:
   type: file
-  path_prefix: input.xml
+  path_prefix: input2.xml
   parser:
-   type: singlexml
+   type: convxml
+   rootpath: 'root/a'
    schema:
-   - {name: a_name1, type: string, exp: "doc.elements['root/a/a_b'].text"}
-   - {name: c_name2, type: string, exp: "doc.elements['root/a/c/a_c_d2'].text"}
+   - {name: b_name1, type: string, exp: "element.elements['b[2]'].text"}
+   - {name: c_name2, type: string, exp: "element.elements['c'].text"}
 exec: {}
 out:
  type: stdout
@@ -45,8 +46,13 @@ out:
 * preview
 ```yaml
 +----------------+----------------+
-| a_name1:string | c_name2:string |
+| b_name1:string | c_name2:string |
 +----------------+----------------+
-|            a_b |           acd2 |
+|           bbb2 |           ccc1 |
+|           bbb5 |           ccc2 |
 +----------------+----------------+
 ```
+## advice
+config.ymlでrootpathを指定しない場合（デフォルトでは"false"）はymlファイルの書き方はこちらを参照↓
+https://github.com/EndoTakumu/embulk-parser-singlexml
+parserはこのプラグインで動作します。
