@@ -53,6 +53,6 @@ out:
 +----------------+----------------+
 ```
 ## advice
-config.ymlでrootpathを指定しない場合（デフォルトでは"false"）はymlファイルの書き方はこちらを参照↓
-https://github.com/EndoTakumu/embulk-parser-singlexml
+config.ymlでrootpathを指定しない場合のymlファイルの書き方はこちらを参照↓<br>
+https://github.com/EndoTakumu/embulk-parser-singlexml   <br>
 parserはこのプラグインで動作します。
